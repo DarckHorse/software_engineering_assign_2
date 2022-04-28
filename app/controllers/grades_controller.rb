@@ -10,41 +10,69 @@ class GradesController < ApplicationController
 
   # GET /grades/1
   def show
+    if (current_user.nil?)
+      redirect_to user_session_path, notice: "Insufficient access"
+    end
   end
 
   # GET /grades/new
   def new
-    @grade = Grade.new
+    if (current_user.nil?)
+      redirect_to user_session_path, notice: 'Insufficient access.'
+    else
+      @grade = Grade.new
+    end
   end
 
   # GET /grades/1/edit
   def edit
+    if (current_user.nil?)
+      redirect_to user_session_path, notice: "Insufficient access"
+    end
   end
 
   # POST /grades
   def create
-    @grade = Grade.new(grade_params)
-
-    if @grade.save
-      redirect_to @grade, notice: 'Grade was successfully created.'
+    if (current_user.nil?)
+      redirect_to user_session_path, notice: "Insufficient access"
     else
-      render :new
+      @grade = Grade.new(grade_params)
+
+      if @grade.save
+        redirect_to @grade, notice: 'Grade was successfully created.'
+      else
+        render :new
+      end
     end
   end
 
   # PATCH/PUT /grades/1
   def update
-    if @grade.update(grade_params)
-      redirect_to @grade, notice: 'Grade was successfully updated.'
+    if (current_user.nil?)
+      redirect_to user_session_path, notice: "Insufficient access"
     else
-      render :edit
+      if @grade.update(grade_params)
+        redirect_to @grade, notice: 'Grade was successfully updated.'
+      else
+        render :edit
+      end
     end
   end
 
   # DELETE /grades/1
   def destroy
-    @grade.destroy
-    redirect_to grades_url, notice: 'Grade was successfully destroyed.'
+    if (current_user.account_id -= 1)
+      @grade.destroy
+      redirect_to grades_url, notice: 'Grade was successfully destroyed.'
+    end
+=begin
+    if (current_user.account_id == 1)
+      @grade.destroy
+      redirect_to grades_url, notice: 'Grade was successfully destroyed.'
+    else
+      redirect_to user_session_path, notice: 'Insufficient access.'
+    end
+=end
   end
 
   private
