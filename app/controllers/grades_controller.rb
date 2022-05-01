@@ -61,18 +61,13 @@ class GradesController < ApplicationController
 
   # DELETE /grades/1
   def destroy
-    if (current_user.account_id -= 1)
+    #if current_user.account_id == 1
       @grade.destroy
       redirect_to grades_url, notice: 'Grade was successfully destroyed.'
-    end
-=begin
-    if (current_user.account_id == 1)
-      @grade.destroy
-      redirect_to grades_url, notice: 'Grade was successfully destroyed.'
-    else
-      redirect_to user_session_path, notice: 'Insufficient access.'
-    end
-=end
+    #else current_user.account_id == 0
+    #  redirect_to grades_url, notice: "Insufficient access (TA)."
+    #after 5 days of working on this cannot get it to work.
+    #end
   end
 
   private

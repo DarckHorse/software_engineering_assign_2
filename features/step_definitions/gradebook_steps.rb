@@ -1,5 +1,6 @@
 Given("there are grades in the gradebook") do
     @teacher = create(:user)
+    @ta =create(:user)
     @eric = create(:grade, :valid)
     @tomai = create(:grade, :valid)
     @schweller = create(:grade, :valid)
@@ -9,6 +10,13 @@ end
 Given("I sign in") do
     visit new_user_session_path
     fill_in "user_email", with: @teacher.email
+    fill_in "user_password", with: "123greetings"
+    click_on "Log in"
+end
+
+Given("I sign in as a TA") do
+    visit new_user_session_path
+    fill_in "user_email", with: @ta.email
     fill_in "user_password", with: "123greetings"
     click_on "Log in"
 end
@@ -65,55 +73,6 @@ end
 Then("I should not be able to see the {string} button") do |string|
     expect(page).not_to have_content(string)
 end
-
-
-
-
-
-
-
-
-
-=begin
-Given("I am signed in as a teacher") do
-    #temp = User.create(email: "teacher@teacher.com", password: "default123", account_id: "1")
-    #@user = temp
-    #sign_in temp
-    visit new_user_session_path
-    fill_in "user_email", with: @teacher.email
-    fill_in "user_password", with: "123greetings"
-    click_on "Log in"
-    visit root_path
-end
-=end
-  
-=begin
-When("I go to create a grade") do
-    click_on "New Grade"
-    fill_in "grade_student_id", with: "123456"
-    fill_in "grade_student_name", with: "Bob Dylan"
-    fill_in "grade_student_grade", with: 80
-    click_on "Create Grade"
-end
-
-  
-Then("I should be able to create a grade") do
-    expect(page).to have_content("Grade was successfully created.")
-end
-=end
-  
-=begin
-Then("I go to read a grade") do
-    click_on @eric.student_name
-end
-
-  
-Then("I should be able to read a grade") do
-    expect(page).to have_content(@eric.student_id)
-    expect(page).to have_content(@eric.student_name)
-    expect(page).to have_content(@eric.student_grade)
-end
-=end
   
 Then("I go to update a grade") do
     click_link("Edit", :match => :first)
