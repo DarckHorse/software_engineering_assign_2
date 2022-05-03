@@ -6,6 +6,13 @@ class GradesController < ApplicationController
     if !user_signed_in?
       redirect_to user_session_path
     end
+    if params[:sort] == "ascending"
+      @grades = Grade.all.order("student_grade")
+    elsif params[:sort] == "descending"
+      @grades = Grade.all.order("student_grade").reverse
+    else
+      @grades = Grade.all
+    end
   end
 
   # GET /grades/1

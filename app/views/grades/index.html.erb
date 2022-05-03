@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<% @grades = Grade.all %>
+<%= link_to 'Ascending', grades_path(sort: "ascending")%>
+<%= link_to 'Descending', grades_path(sort: "descending")%>
 
-<h1>Grades</h1>
 
 <table>
   <thead>
