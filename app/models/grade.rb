@@ -16,4 +16,10 @@ class Grade < ApplicationRecord
             end
         end
     end
+    
+    #makes sure the id generates random 6 characters and numbers together
+    def student_id
+        student_id = [*1..6, *'A'..'F'].sample(6).join
+    end
 end
+
