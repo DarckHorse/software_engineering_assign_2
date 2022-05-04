@@ -10,5 +10,9 @@ FactoryBot.define do
     trait :invalid do
       student_grade { -70 }
     end
+
+    trait :invalid do
+      student_grade { 105 }
+    end
   end
 end
