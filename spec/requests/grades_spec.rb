@@ -134,7 +134,7 @@ RSpec.describe "/grades", type: :request do
     end
     it "should not GET /edit" do
       grade = create(:grade, :valid)
-      get edit_grade_url
+      get edit_grade_url(grade)
       expect(response).to redirect_to(new_user_session_path)
     end
     it "should not GET /show" do
