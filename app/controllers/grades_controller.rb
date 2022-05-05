@@ -61,10 +61,10 @@ class GradesController < ApplicationController
 
   # DELETE /grades/1
   def destroy
-    if (current_user.account_id -= 1)
+    #if (current_user.account_id == 1)
       @grade.destroy
       redirect_to grades_url, notice: 'Grade was successfully destroyed.'
-    end
+    #end
 =begin
     if (current_user.account_id == 1)
       @grade.destroy
