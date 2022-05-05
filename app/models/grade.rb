@@ -17,3 +17,4 @@ class Grade < ApplicationRecord
         end
     end
 end
+
