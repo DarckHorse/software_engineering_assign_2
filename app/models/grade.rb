@@ -16,8 +16,4 @@ class Grade < ApplicationRecord
             end
         end
     end
-
-    def student_id
-        student_id = [*1..6, *'A'..'F'].sample(6).join
-    end
 end
